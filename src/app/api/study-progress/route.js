@@ -1,4 +1,4 @@
-import { supabaseApi } from "@yeardle/supabase/apiRouteClient";
+import { supabaseApi } from "@tutor/supabase/apiRouteClient";
 import { NextResponse } from "next/server";
 
 // Xử lý POST request - Cập nhật quá trình học
