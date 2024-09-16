@@ -1,6 +1,8 @@
 'use client';
 
 import Script from 'next/script';
+import SwaggerUI from 'swagger-ui-react';
+import 'swagger-ui-react/swagger-ui.css';
 
 export default function Home() {
 
@@ -41,6 +43,7 @@ export default function Home() {
         }}
       />
       </div>
+      <SwaggerUI url="/openapi.yaml" />
     </main>
   );
 }
@@ -48,10 +51,10 @@ export default function Home() {
 const styles = {
   main: {
     display: 'flex',
-    minHeight: '100vh',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#f5f5f5',
+    // flex direction: 'column',
+    flexDirection: 'column',
     padding: '20px',
   },
   container: {
