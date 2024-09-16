@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 export async function GET(req) {
   const username = await validateToken(req);
   if (!username) {
-    return NextResponse.json({ error: "Token không hợp lệ" }, { status: 400 });
+    return NextResponse.json({ error: "Not Authorized !" }, { status: 400 });
   }
   console.log(username);
   // get user info from database
