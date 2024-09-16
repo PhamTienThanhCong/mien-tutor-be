@@ -1,3 +1,4 @@
+import { encrypt } from "@tutor/app/utils/Security";
 import { supabaseApi } from "@tutor/supabase/apiRouteClient";
 import { NextResponse } from "next/server";
 
@@ -5,14 +6,25 @@ import { NextResponse } from "next/server";
 export async function POST(req) {
   const { email, password } = await req.json();
 
-  const { data, error } = await supabaseApi.auth.signInWithPassword({
-    email,
-    password
-  });
+  // Tìm kiếm người dùng với email và password khớp
+  const { data, error } = await supabaseApi
+    .from("user")
+    .select("*")
+    .eq("email", email)
+    .eq("password", password);
 
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 400 });
+  if (error || data.length === 0) {
+    return NextResponse.json({ error: "Email hoặc mật khẩu không chính xác" }, { status: 400 });
   }
 
-  return NextResponse.json(data, { status: 200 });
+  const username = data[0].username;
+  // current timestamp
+  const timestamp = new Date().getTime();
+
+  const token = encrypt(JSON.stringify({ username, timestamp }));
+
+  return NextResponse.json({
+    token,
+    tokenType: "Bearer",
+  }, { status: 200 });
 }
