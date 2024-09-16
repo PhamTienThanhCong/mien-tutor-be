@@ -14,15 +14,6 @@ export async function POST(req) {
     return NextResponse.json({ error: insertError.message }, { status: 500 });
   }
 
-  // update in table user_profile
-  const { error: insertProfileError } = await supabaseApi.from('profile').insert([
-    { username }
-  ]);
-
-  if (insertProfileError) {
-    return NextResponse.json({ error: insertProfileError.message }, { status: 500 });
-  }
-
   return NextResponse.json({
     message: "Đăng ký tài khoản thành công",
   }, { status: 201 });

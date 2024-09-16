@@ -8,24 +8,18 @@ export async function GET(req, { params }) {
   // lấy thông tin người dùng từ database user và profile thông qua userId
   const { data, error } = await supabaseApi
     .from('user')
-    .select('id, username, email, role, is_active')
+    .select('*')
     .eq('username', userId);
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 404 });
   }
 
-  // Lấy thông tin hồ sơ người dùng từ database profile thông qua username
-  const { data: profileData, error: profileError } = await supabaseApi
-    .from('profile')
-    .select('*')
-    .eq('username', data[0].username);
+  const userInfo = data[0];
+  // remove password before sending to client
+  delete userInfo.password;
 
-  if (profileError) {
-    return NextResponse.json({ error: profileError.message }, { status: 404 });
-  }
-
-  return NextResponse.json({ ...data[0], profile:profileData[0] }, { status: 200 });
+  return NextResponse.json(userInfo, { status: 200 });
 }
 
 // Xử lý PUT request - Cập nhật hồ sơ người dùng
@@ -52,17 +46,6 @@ export async function PUT(req, { params }) {
         role,
         is_active,
         password,
-      })
-      .eq('username', userId);
-
-    if (updateError) {
-      return NextResponse.json({ error: updateError.message }, { status: 500 });
-    }
-
-    // Cập nhật thông tin hồ sơ người dùng trong database profile. cái nào rỗng thì không cập nhật
-    const { error: updateProfileError } = await supabaseApi
-      .from('profile')
-      .update({
         address,
         avatar,
         gender,
@@ -74,8 +57,8 @@ export async function PUT(req, { params }) {
       })
       .eq('username', userId);
 
-    if (updateProfileError) {
-      return NextResponse.json({ error: updateProfileError.message }, { status: 500 });
+    if (updateError) {
+      return NextResponse.json({ error: updateError.message }, { status: 500 });
     }
   
     return NextResponse.json({

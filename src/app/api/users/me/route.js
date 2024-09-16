@@ -20,5 +20,7 @@ export async function GET(req) {
   }
 
   const user = data[0];
+  // remove password hash
+  delete user.password;
   return NextResponse.json(user, { status: 200 });
 }
