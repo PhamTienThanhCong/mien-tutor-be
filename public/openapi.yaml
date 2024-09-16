@@ -1,0 +1,740 @@
+openapi: 3.0.0
+info:
+  title: TUTOR API documentation
+  description: >-
+    # 📄 Get started here
+
+
+    This template contains a boilerplate for documentation that you can quickly
+    customize and reuse.
+
+
+    ## 🔖 How to use this template
+
+
+    - Replace the content given brackets (()) with your API's details.
+        
+    - Tips are formatted in `codespan` - feel free to read and remove them.
+        
+
+    ---
+
+
+    `Start with a brief overview of what your API offers.`
+
+
+    The ((product name)) provides many API products, tools, and resources that
+    enable you to ((add product value here)).
+
+
+    `You can also list the APIs you offer, link to the relevant pages, or do
+    both in this section.`
+
+
+    ## **Getting started guide**
+
+
+    `List the steps or points required to start using your APIs. Make sure to
+    cover everything required to reach success with your API as quickly as
+    possible.`
+
+
+    To start using the ((add APIs here)), you need to -
+
+
+    `The points given below are from The Postman API's documentation. You can
+    reference it to write your own getting started guide.`
+
+
+    - You must use a valid API Key to send requests to the API endpoints. You
+    can get your API key from Postman's [integrations
+    dashboard](https://go.postman.co/settings/me/api-keys).
+        
+    - The API has [rate and usage
+    limits](https://learning.postman.com/docs/developer/postman-api/postman-api-rate-limits/).
+        
+    - The API only responds to HTTPS-secured communications. Any requests sent
+    via HTTP return an HTTP 301 redirect to the corresponding HTTPS resources.
+        
+    - The API returns request responses in JSON format. When an API request
+    returns an error, it is sent in the JSON response as an error key.
+        
+
+    ## Authentication
+
+
+    `Add details on the authorization keys/tokens required, steps that cover how
+    to get them, and the relevant error codes.`
+
+
+    The ((product name)) API uses ((add your API's authorization type)) for
+    authentication.
+
+
+    `The details given below are from the Postman API's documentation. You can
+    reference it to write your own authentication section.`
+
+
+    Postman uses API keys for authentication. You can generate a Postman API key
+    in the [API keys](https://postman.postman.co/settings/me/api-keys) section
+    of your Postman account settings.
+
+
+    You must include an API key in each request to the Postman API with the
+    X-Api-Key request header.
+
+
+    ### Authentication error response
+
+
+    If an API key is missing, malformed, or invalid, you will receive an HTTP
+    401 Unauthorized response code.
+
+
+    ## Rate and usage limits
+
+
+    `Use this section to cover your APIs' terms of use. Include API limits,
+    constraints, and relevant error codes, so consumers understand the permitted
+    API usage and practices.`
+
+
+    `The example given below is from The Postman API's documentation. Use it as
+    a reference to write your APIs' terms of use.`
+
+
+    API access rate limits apply at a per-API key basis in unit time. The limit
+    is 300 requests per minute. Also, depending on your plan, you may have usage
+    limits. If you exceed either limit, your request will return an HTTP 429 Too
+    Many Requests status code.
+
+
+    Each API response returns the following set of headers to help you identify
+    your use status:
+
+
+    | Header | Description |
+
+    | --- | --- |
+
+    | `X-RateLimit-Limit` | The maximum number of requests that the consumer is
+    permitted to make per minute. |
+
+    | `X-RateLimit-Remaining` | The number of requests remaining in the current
+    rate limit window. |
+
+    | `X-RateLimit-Reset` | The time at which the current rate limit window
+    resets in UTC epoch seconds. |
+
+
+    ### 503 response
+
+
+    An HTTP `503` response from our servers indicates there is an unexpected
+    spike in API access traffic. The server is usually operational within the
+    next five minutes. If the outage persists or you receive any other form of
+    an HTTP `5XX` error, [contact
+    support](https://support.postman.com/hc/en-us/requests/new/).
+
+
+    ### **Need some help?**
+
+
+    `Add links that customers can refer to whenever they need help.`
+
+
+    In case you have questions, go through our tutorials ((link to your video or
+    help documentation here)). Or visit our FAQ page ((link to the relevant
+    page)).
+
+
+    Or you can check out our community forum, there’s a good chance our
+    community has an answer for you. Visit our developer forum ((link to
+    developer forum)) to review topics, ask questions, and learn from others.
+
+
+    `You can also document or add links to libraries, code examples, and other
+    resources needed to make a request.`
+  version: 1.0.0
+servers:
+  - url: https://api.onllearning.edu.vn/
+    description: Production server
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+    apikeyAuth:
+      type: http
+      scheme: apikey
+security:
+  - apikeyAuth: []
+tags:
+  - name: users
+    description: >-
+      ### **Base URL**:
+
+
+      - `https://your-api-endpoint.com`
+          
+
+      ---
+
+
+      ## **1\. API Đăng nhập**
+
+
+      **Endpoint**: `/api/login`  
+
+      **Method**: `POST`  
+
+      **Mô tả**: API này cho phép người dùng đăng nhập bằng cách cung cấp email
+      và mật khẩu.
+
+
+      ### Yêu cầu (Request):
+
+
+      **Request Body**:
+
+
+      ``` json
+
+      {
+        "email": "string",    // Email của người dùng
+        "password": "string"  // Mật khẩu của người dùng
+      }
+
+       ```
+
+      ### Phản hồi (Response):
+
+
+      - **200 OK**: Đăng nhập thành công.
+          
+          ``` json
+                      {
+                        "id": "number",       // ID người dùng
+                        "email": "string",    // Email người dùng
+                        "username": "string", // Tên đăng nhập của người dùng
+                        "role": "string",     // Vai trò của người dùng
+                        "is_active": "boolean"// Trạng thái hoạt động của người dùng
+                      }
+          
+           ```
+          
+      - **400 Bad Request**: Email hoặc mật khẩu không chính xác.
+          
+          ``` json
+                      {
+                        "error": "string" // Thông báo lỗi
+                      }
+          
+           ```
+          
+
+      ---
+
+
+      ## **2\. API Xem hồ sơ người dùng qua ID**
+
+
+      **Endpoint**: `/api/users/[userId]`  
+
+      **Method**: `GET`  
+
+      **Mô tả**: API này cho phép lấy thông tin hồ sơ người dùng dựa trên
+      `userId`.
+
+
+      ### Tham số (Parameters):
+
+
+      - **URL Parameter**: `userId` - ID của người dùng cần lấy thông tin.
+          
+
+      ### Phản hồi (Response):
+
+
+      - { "id": "number", // ID người dùng "username": "string", // Tên đăng
+      nhập của người dùng "email": "string", // Email người dùng "role":
+      "string", // Vai trò của người dùng "is_active": "boolean", // Trạng thái
+      hoạt động của người dùng "profile": { "address": "string", // Địa chỉ
+      người dùng "avatar": "string", // Hình đại diện "gender": "string", //
+      Giới tính "cccd": "string", // Số CCCD "introduction": "string",// Giới
+      thiệu về bản thân "job": "string", // Công việc "full_name": "string", //
+      Tên đầy đủ "phone": "string" // Số điện thoại } }
+          
+      - **404 Not Found**: Không tìm thấy người dùng.
+          
+          ``` json
+                      {
+                        "error": "string" // Thông báo lỗi
+                      }
+          
+           ```
+          
+
+      ---
+
+
+      ## **3\. API Xem thông tin tài khoản**
+
+
+      **Endpoint**: `/api/me`  
+
+      **Method**: `GET`  
+
+      **Mô tả**: API này cho phép xem thông tin tài khoản của người dùng đã đăng
+      nhập.
+
+
+      ### Yêu cầu (Request):
+
+
+      - **Header**:
+          - `Authorization: Bearer`
+              
+
+      ### Phản hồi (Response):
+
+
+      - **200 OK**: Thông tin tài khoản được trả về.
+          
+          ``` json
+                      {
+                        "id": "number",       // ID người dùng
+                        "username": "string", // Tên đăng nhập của người dùng
+                        "email": "string",    // Email người dùng
+                        "role": "string",     // Vai trò của người dùng
+                        "is_active": "boolean"// Trạng thái hoạt động của người dùng
+                      }
+          
+           ```
+          
+      - **401 Unauthorized**: Nếu token không hợp lệ hoặc thiếu.
+          
+          ``` json
+                      {
+                        "error": "Unauthorized"
+                      }
+          
+           ```
+          
+
+      ---
+
+
+      ## **4\. API Cập nhật hồ sơ người dùng**
+
+
+      **Endpoint**: `/api/users/[username]`  
+
+      **Method**: `PUT`  
+
+      **Mô tả**: API này cho phép cập nhật thông tin hồ sơ của người dùng.
+
+
+      ### Yêu cầu (Request):
+
+
+      **Request Body**:
+
+
+      ``` json
+
+      {
+        "role": "string",          // Vai trò của người dùng
+        "is_active": "boolean",    // Trạng thái hoạt động
+        "address": "string",       // Địa chỉ
+        "avatar": "string",        // Hình đại diện
+        "gender": "string",        // Giới tính
+        "cccd": "string",          // CCCD
+        "introduction": "string",  // Giới thiệu
+        "job": "string",           // Nghề nghiệp
+        "full_name": "string",     // Tên đầy đủ
+        "phone": "string",         // Số điện thoại
+        "password": "string"       // Mật khẩu mới
+      }
+
+       ```
+
+      ### Phản hồi (Response):
+
+
+      - { "message": "Cập nhật hồ sơ thành công" }
+          
+      - **500 Internal Server Error**: Có lỗi xảy ra khi cập nhật.
+          
+          ``` json
+                      {
+                        "error": "string" // Thông báo lỗi
+                      }
+          
+           ```
+          
+
+      StartFragment
+
+
+      ## **5\. API Xem thông tin tài khoản hiện tại**
+
+
+      **Endpoint**: `/api/me`  
+
+      **Method**: `GET`  
+
+      **Mô tả**: API này cho phép lấy thông tin tài khoản của người dùng hiện
+      tại dựa trên token xác thực (Bearer token).
+
+
+      ### Yêu cầu (Request):
+
+
+      **Header**:
+
+
+      - `Authorization: Bearer`
+          
+
+      ### Phản hồi (Response):
+
+
+      ``` json
+
+      {  
+        "id": "number", // ID người dùng  
+        "username": "string", // Tên đăng nhập của người dùng  
+        "email": "string", // Email người dùng  
+        "role": "string", // Vai trò của người dùng  
+        "is_active": "boolean"// Trạng thái hoạt động của người dùng  
+      }
+
+       ```
+
+      { "error": "Unauthorized" // Thông báo lỗi xác thực}
+
+
+      API này yêu cầu người dùng đã đăng nhập và gửi token xác thực thông qua
+      header `Authorization`. Bạn có thể dùng nó để lấy thông tin người dùng
+      hiện tại mà không cần cung cấp `userId` hoặc `username`.
+  - name: Comments
+    description: >-
+      ## 1\. **POST /api/comment**
+
+
+      ### **Description:**
+
+
+      API này được sử dụng để gửi một nhận xét mới dành cho một người dùng.
+
+
+      ### **Request:**
+
+
+      - **Method:** `POST`
+          
+      - **URL:** `/api/comment`
+          
+      - **Headers:**
+          
+          - `Content-Type: application/json`
+              
+          
+      - **Request Body:**
+          
+
+      ``` json
+
+      {  
+        "username_voted": "string", // Người được nhận xét  
+        "comment": "string" // Nội dung nhận xét  
+      }  
+
+       ```
+
+      ## 2\. **GET /api/comments/{userName}**
+
+
+      ### **Description:**
+
+
+      API này được sử dụng để lấy danh sách tất cả các nhận xét dành cho một
+      người dùng cụ thể (dựa trên `username` là `username_voted`).
+
+
+      ### **Request:**
+
+
+      - **Method:** `GET`
+          
+      - **URL:** `/api/comments/{username}`
+          
+
+      ### **Response:**
+
+
+      - **Status Code:** `200 OK`
+          
+      - **Response Body:**
+          
+
+      ``` json
+
+      [
+        {
+          "id": 1,
+          "username_voted": "user123",
+          "username": "voter456",
+          "comment": "Great job!",
+          "vote_up": 10,
+          "vote_down": 1
+        },
+        {
+          "id": 2,
+          "username_voted": "user123",
+          "username": "voter789",
+          "comment": "Needs improvement.",
+          "vote_up": 5,
+          "vote_down": 3
+        }
+      ]
+
+       ```
+  - name: Class Requests(yeu cau mo lop)
+  - name: Class Requests(yeu cau mo lop) > nhận lớp
+paths:
+  /users:
+    post:
+      tags:
+        - users
+      summary: create a new user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                username: cong test
+                email: cong@example.com
+                password: TestPassword123
+                role: student
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /users/testuser:
+    get:
+      tags:
+        - users
+      summary: get info user
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    put:
+      tags:
+        - users
+      summary: update user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                role: teacher
+                is_active: true
+                address: 456 Updated S asdt
+                avatar: updatedavatar.png
+                gender: female
+                cccd: '9876543210'
+                introduction: This is an updated ád
+                job: Lecturer
+                full_name: Updated User
+                phone: '0987654321'
+                password: UpdatedPassword123
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /users/login:
+    post:
+      tags:
+        - users
+      summary: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: testuser@example.com
+                password: UpdatedPassword123
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /users/me:
+    get:
+      tags:
+        - users
+      summary: get current user
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /comments:
+    post:
+      tags:
+        - Comments
+      summary: handle comment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                username_voted: testuser
+                comment: This is a sample comment 2
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /comments/testuser:
+    get:
+      tags:
+        - Comments
+      summary: New Request
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /class-requests/2/yeu-cau:
+    post:
+      tags:
+        - Class Requests(yeu cau mo lop) > nhận lớp
+      summary: yeu cầu nhận lớp
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                username: testuser12
+                total_price: 50000
+                description: This is a class for high school students.
+                plan: Weekly lessons
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - Class Requests(yeu cau mo lop) > nhận lớp
+      summary: Danh sách yêu cầu
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /class-requests/1/yeu-cau:
+    delete:
+      tags:
+        - Class Requests(yeu cau mo lop) > nhận lớp
+      summary: Xóa yêu cầu
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /class-requests:
+    post:
+      tags:
+        - Class Requests(yeu cau mo lop)
+      summary: Create classroom
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                id: 1
+                username: testuser12
+                subject: Ngữ văn
+                address: 123 Street A
+                total_price: 200000
+                time: '2024-10-20T09:00:00Z'
+                note: YC nhân viên Nam
+                due_date: '2024-10-19'
+                status: pending
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - Class Requests(yeu cau mo lop)
+      summary: List classroom
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /class-requests/1:
+    get:
+      tags:
+        - Class Requests(yeu cau mo lop)
+      summary: Xem chi tiết lớp
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    put:
+      tags:
+        - Class Requests(yeu cau mo lop)
+      summary: Cập nhập lớp
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                subject: English
+                address: 789 Street C
+                total_price: 250000
+                time: '2024-09-25T10:00:00Z'
+                note: Afternoon class
+                due_date: '2024-09-24'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /heart:
+    get:
+      tags:
+        - default
+      summary: test
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
