@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 // Xử lý POST request - Đăng ký người dùng
 export async function POST(req) {
-  const { username, email, password, role } = await req.json(); // Lấy dữ liệu từ request body
+  const { username, email, password, role, phone = "", is_active=false } = await req.json(); // Lấy dữ liệu từ request body
 
   // Tạo tài khoản người dùng
   const { error: insertError } = await supabaseApi.from('user').insert([
